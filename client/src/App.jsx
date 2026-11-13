@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Login from './login'
+import PassengerDashboard from './pages/PassengerDashboard'
+import DriverDashboard from './pages/DriverDashboard'
 import './App.css'
 import {
   ArrowRight,
@@ -14,9 +16,29 @@ import {
 
 function App() {
   const [showLogin, setShowLogin] = useState(false)
+    const [showDashboard, setShowDashboard] = useState(false)
 
 if (showLogin) {
-  return <Login onBack={() => setShowLogin(false)} />
+return (
+  <Login
+    onBack={() => setShowLogin(false)}
+   onLogin={(role) => {
+  if (role === 'passenger') {
+    setShowDashboard(true)
+    setShowLogin(false)
+  } else {
+    setShowDashboard(false)
+    setShowLogin(false)
+    alert('Driver dashboard coming soon!')
+  }
+}}
+  />
+)
+}
+
+
+if (showDashboard) {
+  return <PassengerDashboard />
 }
   return (
     <div className="app">

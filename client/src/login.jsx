@@ -13,18 +13,21 @@ import {
 } from 'lucide-react'
 import './login.css'
 
-function Login({ onBack }) {
+function Login({ onBack, onLogin }) {
   const [role, setRole] = useState('passenger')
   const [showPassword, setShowPassword] = useState(false)
   const [isRegister, setIsRegister] = useState(false)
   const [message, setMessage] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setMessage(
-      'Demo login submitted! Connect the backend to enable real authentication.'
-    )
+ const handleSubmit = (e) => {
+  e.preventDefault()
+
+  if (onLogin) {
+    onLogin(role)
+  } else {
+    setMessage('Demo login submitted!')
   }
+}
 
   return (
     <div className="login-page">
