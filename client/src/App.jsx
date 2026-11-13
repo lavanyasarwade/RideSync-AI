@@ -17,6 +17,7 @@ import {
 function App() {
   const [showLogin, setShowLogin] = useState(false)
     const [showDashboard, setShowDashboard] = useState(false)
+    const [showDriverDashboard, setShowDriverDashboard] = useState(false)
 
 if (showLogin) {
 return (
@@ -26,11 +27,11 @@ return (
   if (role === 'passenger') {
     setShowDashboard(true)
     setShowLogin(false)
-  } else {
-    setShowDashboard(false)
-    setShowLogin(false)
-    alert('Driver dashboard coming soon!')
-  }
+   } else {
+  setShowDashboard(false)
+  setShowLogin(false)
+  setShowDriverDashboard(true)
+}
 }}
   />
 )
@@ -39,6 +40,9 @@ return (
 
 if (showDashboard) {
   return <PassengerDashboard />
+}
+if (showDriverDashboard) {
+  return <DriverDashboard />
 }
   return (
     <div className="app">

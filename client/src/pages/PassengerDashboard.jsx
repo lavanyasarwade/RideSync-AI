@@ -20,6 +20,9 @@ function PassengerDashboard() {
   const [rideType, setRideType] = useState('Standard')
   const [bookingMessage, setBookingMessage] = useState('')
   const [rideStatus, setRideStatus] = useState('')
+  const [rating, setRating] = useState(0)
+const [reviewText, setReviewText] = useState('')
+const [reviewSubmitted, setReviewSubmitted] = useState(false)
 
   const fares = {
     Standard: 100,
@@ -206,6 +209,58 @@ function PassengerDashboard() {
         <span>{status}</span>
       </div>
     ))}
+  </div>
+)}
+    {rideStatus === 'Requested' && (
+  <button
+    type="button"
+    onClick={() => setRideStatus('Completed')}
+  >
+    Simulate Ride Completed
+  </button>
+)}
+{rideStatus === 'Completed' && (
+  <div className="review-card">
+    <h3>Rate Your Driver</h3>
+    <p>How was your ride experience?</p>
+
+    {!reviewSubmitted ? (
+      <>
+        <div className="star-rating">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <button
+              type="button"
+              key={star}
+              onClick={() => setRating(star)}
+              className={rating >= star ? 'star active' : 'star'}
+            >
+              ★
+            </button>
+          ))}
+        </div>
+
+        <textarea
+          placeholder="Write your experience..."
+          value={reviewText}
+          onChange={(e) => setReviewText(e.target.value)}
+        />
+
+        <button
+          type="button"
+          onClick={() => {
+            if (rating === 0) {
+              alert('Please select a star rating.')
+              return
+            }
+            setReviewSubmitted(true)
+          }}
+        >
+          Submit Review
+        </button>
+      </>
+    ) : (
+      <p>Thank you! Your review has been submitted.</p>
+    )}
   </div>
 )}
 
